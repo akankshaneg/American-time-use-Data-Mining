@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.1.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.1.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="9.1.000" expanded="true" height="68" name="Retrieve American_time_use" width="90" x="45" y="34">
+        <parameter key="repository_entry" value="../../Data/American_time_use"/>
+      </operator>
+      <operator activated="true" class="map" compatibility="9.1.000" expanded="true" height="82" name="Map" width="90" x="179" y="34">
+        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute" value="Age Range"/>
+        <parameter key="attributes" value="Age Range|Education Level"/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="attribute_value"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="time"/>
+        <parameter key="block_type" value="attribute_block"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_matrix_row_start"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+        <list key="value_mappings">
+          <parameter key="0-19" value="young"/>
+          <parameter key="20-29" value="young"/>
+          <parameter key="30-39" value="adult"/>
+          <parameter key="40-49" value="adult"/>
+          <parameter key="50-59" value="adult"/>
+          <parameter key="60-69" value="senior"/>
+          <parameter key="70-79" value="senior"/>
+          <parameter key="80+" value="senior"/>
+          <parameter key="9th grade" value="High school"/>
+          <parameter key="10th grade" value="High school"/>
+          <parameter key="11th grade" value="High school"/>
+          <parameter key="12th grade" value="High school"/>
+          <parameter key="High School" value="High school"/>
+          <parameter key="Bachelor" value="UnderGraduate"/>
+          <parameter key="Associate Degree" value="UnderGraduate"/>
+          <parameter key="Some College" value="UnderGraduate"/>
+          <parameter key="Master" value="Graduate"/>
+          <parameter key="Prof. Degree" value="Graduate"/>
+          <parameter key="Doctoral Degree" value="Graduate"/>
+        </list>
+        <parameter key="consider_regular_expressions" value="false"/>
+        <parameter key="add_default_mapping" value="false"/>
+      </operator>
+      <operator activated="true" class="select_attributes" compatibility="9.1.000" expanded="true" height="82" name="Select Attributes" width="90" x="380" y="34">
+        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value="Age|Year"/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="attribute_value"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="time"/>
+        <parameter key="block_type" value="attribute_block"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_matrix_row_start"/>
+        <parameter key="invert_selection" value="true"/>
+        <parameter key="include_special_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="store" compatibility="9.1.000" expanded="true" height="68" name="Store" width="90" x="581" y="34">
+        <parameter key="repository_entry" value="../Data/PreprocessedData1_MappingandSelectingAttributes"/>
+      </operator>
+      <connect from_op="Retrieve American_time_use" from_port="output" to_op="Map" to_port="example set input"/>
+      <connect from_op="Map" from_port="example set output" to_op="Select Attributes" to_port="example set input"/>
+      <connect from_op="Select Attributes" from_port="example set output" to_op="Store" to_port="input"/>
+      <connect from_op="Store" from_port="through" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>
