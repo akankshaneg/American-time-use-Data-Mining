@@ -1,4 +1,4 @@
-# American-time-use-Data-Mining-
+# American-time-use-Data-Mining
 This project will analyse the data mining of demographic data in order to make classification
 models which are capable of identifying individuals whose salary exceeds or is under a
 specified value.The data used in this project was sourced from Bureau of Labour Statistics
